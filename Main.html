@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('c.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 50%;
+            text-align: center;
+            padding: 0px;
+            background-color: rgba(20, 18, 18, 0.9);
+            border-radius: 0px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0.8%;
+            color: #007bff;
+        }
+
+        input[type="time"], button {
+            margin-bottom: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            width: calc(100% - 20px); /* Adjusted width to account for padding */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="time"]:focus, button:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #outputTime {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Calculator</h1>
+        <input type="time" id="inputTime" onkeydown="handleKeyPress(event)">
+        <button onclick="addTime()">OUT Time</button>
+        <p id="outputTime"></p>
+    </div>
+    <script>
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) { // Check if the key pressed is Enter
+                addTime();
+            }
+        }
+
+        function addTime() {
+            var inputTime = document.getElementById("inputTime").value;
+            var timeParts = inputTime.split(":");
+            var hours = parseInt(timeParts[0]);
+            var minutes = parseInt(timeParts[1]);
+
+            // Convert input time to minutes
+            var inputTotalMinutes = hours * 60 + minutes;
+
+            // Add 7 hours and 45 minutes
+            var totalTimeMinutes = inputTotalMinutes + 7 * 60 + 45;
+
+            // Calculate hours and minutes for the total time
+            var totalHours = Math.floor(totalTimeMinutes / 60) % 24;
+            var totalMinutes = totalTimeMinutes % 60;
+
+            // Format output
+            var outputHours = String(totalHours).padStart(2, '0');
+            var outputMinutes = String(totalMinutes).padStart(2, '0');
+            var outputTime = outputHours + ":" + outputMinutes;
+
+            // Display output
+            document.getElementById("outputTime").innerText = "OUT TIME: " + outputTime;
+        }
+    </script>
+</body>
+</html>
